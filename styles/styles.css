@@ -41,13 +41,22 @@ h1 {
    font-weight: 700;
    
    /*padding: 30px;*/
-   width: 426px;
-   height: 150px;
+   width: 29rem;
+   height: 10.5rem;
    border: solid 5px#d8d8d8;
 
    display: flex;
-      align-items: center;
-      justify-content: center;
+   justify-content: center;
+   align-items: center;
+}
+
+.stopwatch-miliseconds {
+   font-size: 2rem;
+   margin-top: 3.5rem;
+}
+
+.stopwatch-miliseconds-margin-reduced {
+   margin-top: 2rem;
 }
 
 .stopwatch-button-container {

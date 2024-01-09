@@ -13,41 +13,56 @@ let isStopwatchRunning = false;
 
 let interval;
 
+let countHours = 0;
 let countMinutes = 0;
 let countSeconds = 0;
 let countMiliseconds = 0;
 
 function startStopwatch() {
    if (!isStopwatchRunning) {
-      inverval = setInterval(() => {
-         if (countMiliseconds <= 99) {
-            countMiliseconds++;
+      interval = setInterval(() => {
+         if (countMiliseconds <= 999) {
+            countMiliseconds+=Math.round(4.1);
          } else {
             countMiliseconds = 0;
-            
+
             if (countSeconds < 59) {
                countSeconds++;
             } else {
-               countMinutes++;
                countSeconds = 0;
+
+               if (countMinutes < 59) {
+                  countMinutes++;
+               } else {
+                  countMinutes = 0;
+                  countHours++;
+               }
             }
          }
 
          operatingText();
-      }, 10);
+      }, 1);
 
-
+      document.querySelector(".js-stopwatch-miliseconds").classList.add("stopwatch-miliseconds-margin-reduced");
       disableButton("start", "stop")
       isStopwatchRunning = true;
    }
 }
 
 function operatingText() {
-   const stopwatchEl = document.querySelector(".js-stopwatch");
+   const timeEl = document.querySelector(".js-stopwatch-seconds");
+   const milisecondsEl = document.querySelector(".js-stopwatch-miliseconds");
 
+   let messageHours;
    let messageMinutes;
    let messageSeconds;
    let messageMiliseconds;
+
+   if (countHours <= 9) {
+      messageHours = `0${countHours}`;
+   } else {
+      messageHours = countHours;
+   }
 
    if (countMinutes <= 9) {
       messageMinutes = `0${countMinutes}`;
@@ -62,17 +77,20 @@ function operatingText() {
    }
 
    if (countMiliseconds <= 9) {
+      messageMiliseconds = `00${countMiliseconds}`;
+   } else if (countMiliseconds <= 99) {
       messageMiliseconds = `0${countMiliseconds}`;
    } else {
       messageMiliseconds = countMiliseconds;
    }
 
-   stopwatchEl.innerHTML = `<p>${messageMinutes}:${messageSeconds}:${messageMiliseconds}</p>`;
+   timeEl.innerHTML = `<p>${messageHours}:${messageMinutes}:${messageSeconds}</p>`;
+   milisecondsEl.innerHTML = `<p class = "stopwatch-miliseconds js-stopwatch-miliseconds">${messageMiliseconds}</p>`;
 }
 
 function stopStopwatch() {
    if (isStopwatchRunning) {
-      clearInterval(inverval);
+      clearInterval(interval);
 
       disableButton("stop", "start");
       isStopwatchRunning = false;
