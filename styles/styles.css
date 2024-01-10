@@ -75,6 +75,7 @@ h1 {
    width: 100%;
    max-width: 18vw;
 
+   color: #1e1e1e;
    font-family: "IBM Plex Mono";
    font-size: 1rem;
    border: none;
@@ -90,7 +91,9 @@ h1 {
    box-shadow: 2px 2px #000;
 }
 
-.stopwatch-button:active {
+.stopwatch-button:active, .reset-button-active {
+   transform: translate(2px, 2px);
+   box-shadow: 2px 2px #000;
    filter: brightness(70%);
 }
 
@@ -98,10 +101,6 @@ h1 {
    filter: brightness(70%) !important;
    cursor:default;
    pointer-events: none;
-}
-
-.disabled::before {
-   display: none;
 }
 
 
